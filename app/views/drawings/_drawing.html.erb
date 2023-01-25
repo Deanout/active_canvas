@@ -1,0 +1,25 @@
+<div id="<%= dom_id drawing %>">
+  <p>
+    <strong>Title:</strong>
+    <%= drawing.title %>
+  </p>
+  <div style="display: flex">
+    <div style="border: 1px solid black;  width: 400px; height: 400px;">
+      <%= image_tag(drawing.image) if drawing.image.attached? %>
+    </div>
+    <%= content_tag(:div, "", data: {
+      controller: "drawing",
+      drawing_id: drawing.id,
+      drawing_drawable: drawing.image.attached? ? rails_blob_path(drawing.image, only_path: true) : nil,
+    }) do %>
+      <div style="border: 1px solid black; width: 400px; height: 400px;">
+        <%= content_tag(:canvas, "", width: 400, height: 400, data: {
+          drawing_target: "canvas",
+        }) %>
+      </div>
+      <%= link_to "Clear", "#", remote: true, data: { 
+        action: "click->drawing#clear"
+      } %>
+    <% end %>
+  </div>
+</div>

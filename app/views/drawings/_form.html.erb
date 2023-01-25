@@ -1,0 +1,22 @@
+<%= form_with(model: drawing) do |form| %>
+  <% if drawing.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(drawing.errors.count, "error") %> prohibited this drawing from being saved:</h2>
+
+      <ul>
+        <% drawing.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :title, style: "display: block" %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
